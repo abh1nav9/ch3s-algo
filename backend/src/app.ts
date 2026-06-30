@@ -8,7 +8,18 @@ import { decodeRouter } from './routes/decode';
 export function createApp() {
   const app = express();
 
-  app.use(cors());
+  app.use(
+    cors({
+      // Allow configured origins; also allow non-browser callers (no Origin
+      // header, e.g. curl) so the API stays usable outside the frontend.
+      origin(origin, callback) {
+        if (!origin || config.allowedOrigins.includes(origin)) {
+          return callback(null, true);
+        }
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      },
+    }),
+  );
   app.use(express.json({ limit: config.bodyLimit }));
   // Accept raw file uploads on the encode endpoint.
   app.use(express.raw({ type: 'application/octet-stream', limit: config.bodyLimit }));

@@ -1,6 +1,6 @@
 {
   "name": "ch3s-backend",
-  "module": "src/index.ts",
+  "module": "src/server.ts",
   "type": "module",
   "private": true,
   "license": "Apache-2.0",
@@ -8,8 +8,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
-    "start": "bun run src/index.ts",
+    "dev": "bun run --hot src/server.ts",
+    "start": "bun run src/server.ts",
     "test": "bun run tests/roundtrip.test.ts"
   },
   "dependencies": {

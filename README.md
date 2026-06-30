@@ -17,7 +17,7 @@ partial byte is truncated exactly.
 ```
 backend/                  bun + express REST API
   src/
-    index.ts              entry — boots the server
+    server.ts             entry — boots the server (Vercel auto-detects this)
     app.ts                builds the express app (no listener; testable)
     config.ts             port / size limits (env-overridable)
     routes/               encode.ts, decode.ts
@@ -75,23 +75,29 @@ Covers every byte value 0–255, the historically buggy strings (`hai`, `i`,
 Deploy `backend/` and `frontend/` as **two separate Vercel projects** (set each
 one's Root Directory accordingly in the import step).
 
-**Backend** — runs the Express app as a serverless function via
-[`backend/api/index.ts`](backend/api/index.ts); [`backend/vercel.json`](backend/vercel.json)
-rewrites every path to it, so `/encode`, `/decode`, and `/health` work unchanged.
-No env vars required. Note its deployed URL.
+Live: frontend <https://ch3s-algo-frontend.vercel.app> · backend
+<https://ch3s-algo-backend.vercel.app>
+
+**Backend** — Vercel auto-detects [`backend/src/server.ts`](backend/src/server.ts)
+as a Node server (it calls `app.listen()` at startup) and routes all requests to
+it, so `/encode`, `/decode`, and `/health` work unchanged. No `vercel.json` and
+no env vars are required. By default the API only accepts browser requests from
+the frontend origin and `localhost:3000`; override with a comma-separated
+`ALLOWED_ORIGINS` env var if you add custom domains or preview URLs. Note the
+deployed URL.
 
 **Frontend** — auto-detected Vite static build ([`frontend/vercel.json`](frontend/vercel.json)
 adds the SPA rewrite). Set one environment variable to point it at the backend:
 
 ```
-VITE_API_URL = https://<your-backend>.vercel.app
+VITE_API_URL = https://ch3s-algo-backend.vercel.app
 ```
 
 (see [`frontend/.env.example`](frontend/.env.example)). Redeploy the frontend
 after setting it, since Vite inlines env vars at build time.
 
-> Vercel builds with Node (not Bun) — the app code is plain Node/Express, so this
-> is fine. `bun run dev` is only for local development.
+> Vercel runs `bun install` (it reads `bun.lock`) but the functions run on Node —
+> the app code is plain Node/Express, so this is fine.
 
 ## License
 
