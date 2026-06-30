@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL ?? 'https://ch3s-algo-backend.onrender.com/';
+const BASE = import.meta.env.VITE_API_URL ?? 'https://ch3s-algo-backend.onrender.com';
 
 export interface EncodeResponse {
   pgn: string;
