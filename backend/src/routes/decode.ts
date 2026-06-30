@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { decode } from '../algorithms';
-import { asText, messageOf } from '../utils/http';
+import { decode } from '../algorithms/index.js';
+import { asText, messageOf } from '../utils/http.js';
 
 /**
  * POST /decode  (application/json: { pgn: string })

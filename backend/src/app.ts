@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { config } from './config';
-import { encodeRouter } from './routes/encode';
-import { decodeRouter } from './routes/decode';
+import { config } from './config.js';
+import { encodeRouter } from './routes/encode.js';
+import { decodeRouter } from './routes/decode.js';
 
 /** Builds the Express app without starting a listener (handy for tests). */
 export function createApp() {

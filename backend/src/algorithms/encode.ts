@@ -1,5 +1,5 @@
 import { Chess } from 'chess.js';
-import { calculateChecksum, orderedLegalMoves, uci, toBinaryString } from './util';
+import { calculateChecksum, orderedLegalMoves, uci, toBinaryString } from './util.js';
 
 const MAX_PLIES_PER_GAME = 100; // cap game length so PGNs stay readable
 

@@ -1,5 +1,5 @@
-import { encode } from '../src/algorithms/encode';
-import { decode } from '../src/algorithms/decode';
+import { encode } from '../src/algorithms/encode.js';
+import { decode } from '../src/algorithms/decode.js';
 
 function check(name: string, data: Uint8Array) {
   const enc = encode(data);

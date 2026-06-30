@@ -1,3 +1,3 @@
-export { encode, type EncodeResult } from './encode';
-export { decode, type DecodeResult } from './decode';
-export { calculateChecksum } from './util';
+export { encode, type EncodeResult } from './encode.js';
+export { decode, type DecodeResult } from './decode.js';
+export { calculateChecksum } from './util.js';

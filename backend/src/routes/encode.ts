@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { encode } from '../algorithms';
-import { config } from '../config';
-import { readInput, messageOf } from '../utils/http';
+import { encode } from '../algorithms/index.js';
+import { config } from '../config.js';
+import { readInput, messageOf } from '../utils/http.js';
 
 /**
  * POST /encode

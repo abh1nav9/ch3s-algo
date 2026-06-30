@@ -1,5 +1,5 @@
 import { Chess } from 'chess.js';
-import { calculateChecksum, getPgnGames, orderedLegalMoves, uci } from './util';
+import { calculateChecksum, getPgnGames, orderedLegalMoves, uci } from './util.js';
 
 export interface DecodeResult {
   data: Uint8Array;
