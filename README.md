@@ -17,7 +17,7 @@ partial byte is truncated exactly.
 ```
 backend/                  bun + express REST API
   src/
-    server.ts             entry — boots the server (Vercel auto-detects this)
+    server.ts             entry — boots the server
     app.ts                builds the express app (no listener; testable)
     config.ts             port / size limits (env-overridable)
     routes/               encode.ts, decode.ts
@@ -70,34 +70,26 @@ Covers every byte value 0–255, the historically buggy strings (`hai`, `i`,
 | POST   | `/decode` | `{ "pgn": "..." }`                                | `{ base64, text, byteLength, checksumOk }` |
 | GET    | `/health` | —                                                 | `{ ok: true }` |
 
-## Deploy (Vercel)
+## Deploy
 
-Deploy `backend/` and `frontend/` as **two separate Vercel projects** (set each
-one's Root Directory accordingly in the import step).
+The two apps deploy independently.
 
-Live: frontend <https://ch3s-algo-frontend.vercel.app> · backend
-<https://ch3s-algo-backend.vercel.app>
+**Backend** — a standard Express server. Run `bun install` then `bun start`
+(serves on `$PORT`, default 3001) on any host that runs a long-lived Node/Bun
+process. By default the API only accepts browser requests from the frontend
+origin and `localhost:3000`; override with a comma-separated `ALLOWED_ORIGINS`
+env var when you add custom domains.
 
-**Backend** — Vercel auto-detects [`backend/src/server.ts`](backend/src/server.ts)
-as a Node server (it calls `app.listen()` at startup) and routes all requests to
-it, so `/encode`, `/decode`, and `/health` work unchanged. No `vercel.json` and
-no env vars are required. By default the API only accepts browser requests from
-the frontend origin and `localhost:3000`; override with a comma-separated
-`ALLOWED_ORIGINS` env var if you add custom domains or preview URLs. Note the
-deployed URL.
-
-**Frontend** — auto-detected Vite static build ([`frontend/vercel.json`](frontend/vercel.json)
-adds the SPA rewrite). Set one environment variable to point it at the backend:
+**Frontend** — a static Vite build, deployed on Vercel
+(<https://ch3s-algo-frontend.vercel.app>; [`frontend/vercel.json`](frontend/vercel.json)
+adds the SPA rewrite). Point it at the backend with one environment variable:
 
 ```
-VITE_API_URL = https://ch3s-algo-backend.vercel.app
+VITE_API_URL = https://<your-backend-host>
 ```
 
 (see [`frontend/.env.example`](frontend/.env.example)). Redeploy the frontend
 after setting it, since Vite inlines env vars at build time.
-
-> Vercel runs `bun install` (it reads `bun.lock`) but the functions run on Node —
-> the app code is plain Node/Express, so this is fine.
 
 ## License
 

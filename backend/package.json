@@ -10,8 +10,6 @@
   "scripts": {
     "dev": "bun run --hot src/server.ts",
     "start": "bun run src/server.ts",
-    "build": "bun run build.ts",
-    "vercel-build": "bun run build.ts",
     "test": "bun run tests/roundtrip.test.ts"
   },
   "dependencies": {
@@ -21,7 +19,6 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "esbuild": "^0.28.1"
+    "@types/express": "^4.17.21"
   }
 }
